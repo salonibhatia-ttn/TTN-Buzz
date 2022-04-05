@@ -1,0 +1,24 @@
+{
+  "name": "ttn-buzz",
+  "version": "1.0.0",
+  "description": "A web application that helps us connect with each other &amp; share our thoughts using text &amp; media posts at Buzz. We can also create connections within the organisation by sending them friend requests.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/salonibhatia-ttn/TTN-Buzz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/salonibhatia-ttn/TTN-Buzz/issues"
+  },
+  "homepage": "https://github.com/salonibhatia-ttn/TTN-Buzz#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongoose": "^6.2.10",
+    "nodemon": "^2.0.15"
+  }
+}
