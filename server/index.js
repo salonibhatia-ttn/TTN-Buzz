@@ -27,6 +27,12 @@ app.get("/", (req,res)=>{
 })
 
 
+app.post('/signup',(req,res)=>{
+    console.log(req.body);
+    res.json({message:req.body});
+    // res.send("checking...")
+})
+
 
 app.listen(PORT, console.log(`Server on port ${PORT}`));
 
