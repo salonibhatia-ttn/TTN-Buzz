@@ -1,11 +1,14 @@
 // 
+const dotenv = require("dotenv");
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 
+
+dotenv.config({path:'./config.env'});
 // connecting database using mongoose
 
-const DB = "mongodb+srv://sandeep02bhatt:tothenew@cluster0.uf9e0.mongodb.net/TTN_BUZZ?retryWrites=true&w=majority";
+const DB = process.env.DATABASE;
 
 
 mongoose.connect(DB).then(()=>{
