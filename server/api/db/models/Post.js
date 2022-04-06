@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
-
+const User = require('./User');
 
 const postSchema = new mongoose.Schema({
     
 
     userID:{
         type:String,
-        ref:'USER',
+        ref:'User',
         required:true,
      },
      text:{
@@ -15,15 +15,15 @@ const postSchema = new mongoose.Schema({
      },
      images:{
          type: Array,
-         ref:'USER',
+         ref:'User',
      },
      like:{
          type:Array,
-         ref:'USER',
+         ref:'User',
      },
      dislike:{
          type: Array,
-         ref:'USER',
+         ref:'User',
 
      },
      report:
@@ -38,6 +38,6 @@ const postSchema = new mongoose.Schema({
 })
 
 
-const Post = mongoose.model("POST",postSchema);
+const Post = mongoose.model("Post",postSchema);
 
 module.exports= Post;

@@ -1,5 +1,6 @@
 const mongoose = require ('mongoose');
 const Post = require('./Post');
+
 //ImageSchema 
 const imageSchema = new mongoose.Schema({
  postId : {
@@ -17,5 +18,5 @@ const imageSchema = new mongoose.Schema({
  }
 });
 
-const Image = mongoose.model('IMAGE', imageSchema);
+const Image = mongoose.model('Image', imageSchema);
 module.exports = Image;

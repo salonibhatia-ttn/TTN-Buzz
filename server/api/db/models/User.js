@@ -37,12 +37,12 @@ const userSchema = new mongoose.Schema({
     },
     userFriendList:{
         type: Array,
-        ref:'USER'
+        ref:'User'
         
     },
     friendRequest:{
         type: Array,
-        ref:'USER'
+        ref:'User'
     },
     profileViews:{
         type: Number,
@@ -53,6 +53,6 @@ const userSchema = new mongoose.Schema({
 })
 
 
-const User = mongoose.model("USER",userSchema);
+const User = mongoose.model("User",userSchema);
 
 module.exports = User;
