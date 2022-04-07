@@ -3,8 +3,9 @@ const dotenv = require("dotenv");
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-
-const User = require('./api/db/models/User.js')
+const postRoute = require("./routes/post");
+const commentRoute = require("./routes/comment");
+const User = require('./api/db/models/User.js');
 
 // getting the DOTENV file
 dotenv.config({path:'./config.env'});
@@ -19,6 +20,8 @@ mongoose.connect(DB).then(()=>{
 }).catch((err)=>console.log(`no connection`));
 
 app.use(express.json());
+app.use("/post", postRoute);
+app.use("/comment", commentRoute);
 
 
 // assigning port  number
