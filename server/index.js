@@ -34,7 +34,7 @@ app.post('/signup', async (req,res)=>{
 
 
     const newUser = new User({
-        firstName: req.body.firstName,
+    firstName: req.body.firstName,
     lastName : req.body.lastName,
     isAdmin : req.body.isAdmin,
     userEmailId : req.body.userEmailId,
@@ -44,9 +44,20 @@ app.post('/signup', async (req,res)=>{
         const user = await newUser.save();
         res.status(200).json(user);
     }catch(err){
-        console.log(err);
+        res.status(500).json(err);
     }
 
+})
+
+app.post('/login',async(req,res)=>{
+    try{
+        const user =  await User.findOne({userEmailId:req.body.userEmailId});
+        !user && res.status(404).json("user not found");
+
+        res.status(200).json(user);
+    }catch(err){
+        res.status(500).json(err);
+    }
 })
 
 
