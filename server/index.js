@@ -4,8 +4,11 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 
+const User = require('./api/db/models/User.js')
 
+// getting the DOTENV file
 dotenv.config({path:'./config.env'});
+
 // connecting database using mongoose
 
 const DB = process.env.DATABASE;
@@ -27,10 +30,23 @@ app.get("/", (req,res)=>{
 })
 
 
-app.post('/signup',(req,res)=>{
-    console.log(req.body);
-    res.json({message:req.body});
-    // res.send("checking...")
+app.post('/signup', async (req,res)=>{
+
+
+    const newUser = new User({
+        firstName: req.body.firstName,
+    lastName : req.body.lastName,
+    isAdmin : req.body.isAdmin,
+    userEmailId : req.body.userEmailId,
+    });
+
+    try{
+        const user = await newUser.save();
+        res.status(200).json(user);
+    }catch(err){
+        console.log(err);
+    }
+
 })
 
 
