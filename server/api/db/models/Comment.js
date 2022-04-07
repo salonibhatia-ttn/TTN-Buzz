@@ -21,7 +21,7 @@ const commentSchema = new mongoose.Schema({
  },
  dateCreated: {
    type: Date,
-   required: true
+   //required: true
  }
 });
 

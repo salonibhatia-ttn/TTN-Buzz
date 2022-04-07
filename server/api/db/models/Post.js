@@ -15,7 +15,7 @@ const postSchema = new mongoose.Schema({
      },
      images:{
          type: Array,
-         ref:'User',
+         ref:'Image',
      },
      like:{
          type:Array,
@@ -33,7 +33,7 @@ const postSchema = new mongoose.Schema({
      ,
      dateCreated:{
          type:Date,
-         required:true,
+        // required:true,
      }
 })
 
