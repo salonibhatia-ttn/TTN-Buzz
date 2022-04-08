@@ -1,54 +1,59 @@
 // 
-const dotenv = require("dotenv");
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+// routes
 const postRoute = require("./routes/post");
 const commentRoute = require("./routes/comment");
-const User = require('./api/db/models/User.js');
+const userRoute =require("./routes/user");
+// dotenv file
+const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
+// models
+const User = require('./api/db/models/User.js');
 
 
 // getting the DOTENV file
 dotenv.config({path:'./config.env'});
 
 // connecting database using mongoose
-
 const DB = process.env.DATABASE;
-
 
 mongoose.connect(DB).then(()=>{
     console.log(`connection successful`);
 }).catch((err)=>console.log(`no connection`));
 
+
+
+
+// using middleware
 app.use(express.json());
+
+// calling routes
 app.use("/post", postRoute);
 app.use("/comment", commentRoute);
+app.use("/user",userRoute);
 
 
 // assigning port  number
 const PORT = process.env.PORT || 3001;
 
-
+// home page
 app.get("/", (req,res)=>{
     res.send("hello world");
 })
 
+
 // Register user
 
 app.post('/register', async (req,res)=>{
-
-
-    
-
-    try{
+   try{
 
         // generating new password
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-
-    //   crating new user
+ //   crating new user
       const newUser = new User({
         firstName: req.body.firstName,
         lastName : req.body.lastName,
