@@ -57,4 +57,26 @@ router.get("/:id", async (req, res) => {
     }
   });
 
+// follow a user or make friend
+
+  router.put("/:id/makefriend", async (req, res) => {
+    if (req.body.userId !== req.params.id) {
+      try {
+        const user = await User.findById(req.params.id);
+        const currentUser = await User.findById(req.body.userId);
+        if (!user.userFriendList.includes(req.body.userId)) {
+          await user.updateOne({ $push: { userFriendList: req.body.userId } });
+          await currentUser.updateOne({ $push: { friendRequest: req.params.id } });
+          res.status(200).json("user is your friend now");
+        } else {
+          res.status(403).json("you already friend of this user");
+        }
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    } else {
+      res.status(403).json("you cant be friend of yourself");
+    }
+  });
+
 module.exports = router;
