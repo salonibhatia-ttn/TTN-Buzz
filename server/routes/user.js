@@ -66,7 +66,7 @@ router.get("/:id", async (req, res) => {
         const currentUser = await User.findById(req.body.userId);
         if (!user.userFriendList.includes(req.body.userId)) {
           await user.updateOne({ $push: { userFriendList: req.body.userId } });
-          await currentUser.updateOne({ $push: { friendRequest: req.params.id } });
+          await currentUser.updateOne({ $push: { userFriendList: req.params.id } });
           res.status(200).json("user is your friend now");
         } else {
           res.status(403).json("you already friend of this user");
