@@ -15,6 +15,7 @@ const UserSchema = new mongoose.Schema({
     isAdmin:{
         type: Boolean,
         required:true,
+        default:false, 
 
     },
     userEmailId:{
@@ -23,21 +24,29 @@ const UserSchema = new mongoose.Schema({
         unique:true,
 
     },
+    password:{
+        type:String,
+        required: true,
+    },
     userStatus:{
         type: Boolean,
     },
     isLoggedIn:{
         type: Boolean,
+        default:false,
     },
     profilePicture:{
         type:String,
+        default:"",
     },
     coverPicture:{
         type:String,
+        default:"",
     },
     userFriendList:{
         type: Array,
         // ref:'User'
+        default:[],
         
     },
     friendRequest:{

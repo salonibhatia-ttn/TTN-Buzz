@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const postRoute = require("./routes/post");
 const commentRoute = require("./routes/comment");
 const User = require('./api/db/models/User.js');
+const bcrypt = require("bcrypt");
+
 
 // getting the DOTENV file
 dotenv.config({path:'./config.env'});
@@ -32,18 +34,30 @@ app.get("/", (req,res)=>{
     res.send("hello world");
 })
 
+// Register user
 
-app.post('/signup', async (req,res)=>{
+app.post('/register', async (req,res)=>{
 
 
-    const newUser = new User({
-    firstName: req.body.firstName,
-    lastName : req.body.lastName,
-    isAdmin : req.body.isAdmin,
-    userEmailId : req.body.userEmailId,
-    });
+    
 
     try{
+
+        // generating new password
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+
+    //   crating new user
+      const newUser = new User({
+        firstName: req.body.firstName,
+        lastName : req.body.lastName,
+        isAdmin : req.body.isAdmin,
+        userEmailId : req.body.userEmailId,
+        password:hashedPassword,
+        });
+
+    //    save user and respond
         const user = await newUser.save();
         res.status(200).json(user);
     }catch(err){
@@ -56,6 +70,9 @@ app.post('/login',async(req,res)=>{
     try{
         const user =  await User.findOne({userEmailId:req.body.userEmailId});
         !user && res.status(404).json("user not found");
+
+        const validPassword = await bcrypt.compare(req.body.password, user.password)
+        !validPassword && res.status(400).json("invalid/wrong password")
 
         res.status(200).json(user);
     }catch(err){
