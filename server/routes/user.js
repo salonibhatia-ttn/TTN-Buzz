@@ -79,4 +79,28 @@ router.get("/:id", async (req, res) => {
     }
   });
 
+
+  //remove or unfriend a user
+
+router.put("/:id/unfriend", async (req, res) => {
+    if (req.body.userId !== req.params.id) {
+      try {
+        const user = await User.findById(req.params.id);
+        const currentUser = await User.findById(req.body.userId);
+        if (user.userFriendList.includes(req.body.userId)) {
+          await user.updateOne({ $pull: { userFriendList: req.body.userId } });
+          await currentUser.updateOne({ $pull: { userFriendList: req.params.id } });
+          res.status(200).json("user has been unfriend");
+        } else {
+          res.status(403).json("you dont have this user");
+        }
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    } else {
+      res.status(403).json("you cant unfriend yourself");
+    }
+  });
+
+
 module.exports = router;
