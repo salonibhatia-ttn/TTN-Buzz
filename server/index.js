@@ -11,6 +11,9 @@ const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
 // models
 const User = require('./api/db/models/User.js');
+// passport
+const passport = require('passport')
+const cookieSession = require('cookie-session')
 
 
 // getting the DOTENV file
@@ -23,16 +26,39 @@ mongoose.connect(DB).then(()=>{
     console.log(`connection successful`);
 }).catch((err)=>console.log(`no connection`));
 
-
+// passport
+require("./config/passport");
 
 
 // using middleware
 app.use(express.json());
 
+// cookie Session
+app.use(cookieSession({
+    name: 'ttnbuzz',
+    keys: ["key1","key2"]
+
+  }))
+
+//  middleware
+ const isLoggedIn =(req,res,next)=>{
+     if(req.user){
+         next();
+     }else{
+         res.sendStatus(401);
+     }
+
+ } 
+
+ // passport middleware
+app.use(passport.initialize())
+app.use(passport.session())
+
 // calling routes
 app.use("/post", postRoute);
 app.use("/comment", commentRoute);
 app.use("/user",userRoute);
+// app.use('/auth',require('./routes/auth'))
 
 
 // assigning port  number
@@ -42,6 +68,37 @@ const PORT = process.env.PORT || 3001;
 app.get("/", (req,res)=>{
     res.send("hello world");
 })
+
+app.get("/failed", (req,res)=>{
+    res.send("unable to login !!");
+})
+
+
+app.get("/welcome",isLoggedIn, (req,res)=>{
+    res.send(`welcome user ${req.user.displayName}`);
+})
+
+
+app.get('/logout',(req,res)=>{
+    req.session= null;
+    req.logout();
+    res.redirect("/");
+})
+
+
+
+// passport auth google
+app.get('/google',
+  passport.authenticate('google', { scope: ['profile','email'] }));
+
+app.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/failed' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/welcome');
+  });
+
+
 
 
 // Register user
