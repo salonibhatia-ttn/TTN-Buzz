@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const postRoute = require("./routes/post");
 const commentRoute = require("./routes/comment");
 const userRoute =require("./routes/user");
+const authRoute= require("./routes/auth");
 // dotenv file
 const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
@@ -58,7 +59,7 @@ app.use(passport.session())
 app.use("/post", postRoute);
 app.use("/comment", commentRoute);
 app.use("/user",userRoute);
-// app.use('/auth',require('./routes/auth'))
+app.use("/",authRoute);
 
 
 // assigning port  number
@@ -88,15 +89,15 @@ app.get('/logout',(req,res)=>{
 
 
 // passport auth google
-app.get('/google',
-  passport.authenticate('google', { scope: ['profile','email'] }));
+// app.get('/google',
+//   passport.authenticate('google', { scope: ['profile','email'] }));
 
-app.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/failed' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/welcome');
-  });
+// app.get('/google/callback', 
+//   passport.authenticate('google', { failureRedirect: '/failed' }),
+//   function(req, res) {
+//     // Successful authentication, redirect home.
+//     res.redirect('/welcome');
+//   });
 
 
 
