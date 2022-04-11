@@ -8,7 +8,7 @@ router.post('/addcomment', async (req,res)=>{
      const savedComment = await addComment.save();
      res.status(200).json(savedComment);
   } catch(err) {
-    res.status(500).json(err);
+    res.status(500).json(err);  
   }
 });
 
@@ -16,7 +16,7 @@ router.post('/addcomment', async (req,res)=>{
 router.put('/updatecomment/:id' , async (req,res) => {
   try{
     const comment = await Comment.findById(req.params.id);
-    if(comment.postId === req.body.postId) {
+    if(comment.userId.find(x => x === req.body.userId)) {
       await comment.updateOne({$set: req.body});
       res.status(200).json("Your comment has been updated.");
     }else {
@@ -24,14 +24,14 @@ router.put('/updatecomment/:id' , async (req,res) => {
     }
   } catch (err) {
     res.status(500).json(err);
-  } 
-});
- 
+  }   
+});     
+
 //deleting post
 router.delete('/deletecomment/:id' , async (req,res) => {
   try{
     const comment = await Comment.findById(req.params.id);
-    if(comment.userId === req.body.userId) {
+    if(comment.userId.find(x => x === req.body.userId)){
       await comment.deleteOne();
       res.status(200).json("Your comment has been deleted.");
     }else {
@@ -46,7 +46,7 @@ router.delete('/deletecomment/:id' , async (req,res) => {
 router.get('/getcomment/:id', async (req,res) => {
   try{
     const comment =  await Comment.findById(req.params.id);
-    res.status(200).json(post);
+    res.status(200).json(comment);
   } catch (err) {
     res.status(500).json(err);
   }

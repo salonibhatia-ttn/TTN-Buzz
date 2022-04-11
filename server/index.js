@@ -55,8 +55,8 @@ app.use(cookieSession({
 app.use(passport.initialize())
 app.use(passport.session())   
 
-// calling routes
-app.use("/post", postRoute);
+// calling routes   
+app.use("/post", postRoute);      
 app.use("/comment", commentRoute);
 app.use("/user",userRoute);
 app.use("/",authRoute);
@@ -71,7 +71,7 @@ app.get("/", (req,res)=>{
 })
 
 app.get("/failed", (req,res)=>{
-    res.send("unable to login !!");
+    res.send("unable to login !!");   
 })
 
 
