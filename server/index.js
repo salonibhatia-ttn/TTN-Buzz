@@ -53,7 +53,7 @@ app.use(cookieSession({
 
  // passport middleware
 app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.session())   
 
 // calling routes
 app.use("/post", postRoute);
@@ -65,8 +65,8 @@ app.use("/",authRoute);
 // assigning port  number
 const PORT = process.env.PORT || 3001;
 
-// home page
-app.get("/", (req,res)=>{
+// home page  
+app.get("/", (req,res)=>{  
     res.send("hello world");
 })
 
