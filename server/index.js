@@ -70,15 +70,9 @@ app.use('/image', imageRoute);
 // assigning port  number
 const PORT = process.env.PORT || 3001;
 
-<<<<<<< HEAD
 // home page
 app.get("/", (req,res)=>{
     res.send("hello world nodejs");
-=======
-// home page  
-app.get("/", (req,res)=>{  
-    res.send("hello world");
->>>>>>> 6575cd245da139752bf42eece86b5ca1d7107e83
 })
 
 app.get("/failed", (req,res)=>{
