@@ -53,10 +53,10 @@ app.use(cookieSession({
 
  // passport middleware
 app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.session())   
 
-// calling routes
-app.use("/post", postRoute);
+// calling routes   
+app.use("/post", postRoute);      
 app.use("/comment", commentRoute);
 app.use("/user",userRoute);
 app.use("/",authRoute);
@@ -65,13 +65,19 @@ app.use("/",authRoute);
 // assigning port  number
 const PORT = process.env.PORT || 3001;
 
+<<<<<<< HEAD
 // home page
 app.get("/", (req,res)=>{
     res.send("hello world nodejs");
+=======
+// home page  
+app.get("/", (req,res)=>{  
+    res.send("hello world");
+>>>>>>> 6575cd245da139752bf42eece86b5ca1d7107e83
 })
 
 app.get("/failed", (req,res)=>{
-    res.send("unable to login !!");
+    res.send("unable to login !!");   
 })
 
 
