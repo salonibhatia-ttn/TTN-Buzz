@@ -67,7 +67,7 @@ const PORT = process.env.PORT || 3001;
 
 // home page
 app.get("/", (req,res)=>{
-    res.send("hello world");
+    res.send("hello world nodejs");
 })
 
 app.get("/failed", (req,res)=>{
@@ -100,6 +100,11 @@ app.get('/logout',(req,res)=>{
 //   });
 
 
+
+app.post("/post", (req, res) => {
+    console.log("Connected to React");
+    res.redirect("/");
+  });
 
 
 // Register user
