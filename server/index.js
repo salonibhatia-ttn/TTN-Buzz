@@ -2,11 +2,13 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-// routes
+const bodyParser = require('body-parser');
+// routes  
 const postRoute = require("./routes/post");
 const commentRoute = require("./routes/comment");
 const userRoute =require("./routes/user");
 const authRoute= require("./routes/auth");
+const imageRoute = require('./routes/image');
 // dotenv file
 const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
@@ -33,6 +35,8 @@ require("./config/passport");
 
 // using middleware
 app.use(express.json());
+app.use(bodyParser.urlencoded( {extended : false} ));
+app.use(bodyParser.json());
 
 // cookie Session
 app.use(cookieSession({
@@ -60,6 +64,7 @@ app.use("/post", postRoute);
 app.use("/comment", commentRoute);
 app.use("/user",userRoute);
 app.use("/",authRoute);
+app.use('/image', imageRoute);
 
 
 // assigning port  number
