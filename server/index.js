@@ -18,6 +18,7 @@ const User = require('./api/db/models/User.js');
 // passport
 const passport = require('passport')
 const cookieSession = require('cookie-session')
+const session = require('express-session')
 
 
 // getting the DOTENV file
@@ -31,7 +32,7 @@ mongoose.connect(DB).then(()=>{
 }).catch((err)=>console.log(`no connection`));
 
 // passport
-require("./config/passport");
+require("./config/passport")(passport);
 
 
 // using middleware
@@ -47,10 +48,20 @@ app.use(cookieSession({
   }))
 
 
+//   Sessions
+app.use(session({
+    secret:'keyboard car',
+    resave: false,
+    saveUninitialized: false,
+})
+)
+
 
  // passport middleware
 app.use(passport.initialize())
 app.use(passport.session())   
+
+
 
 // calling routes   
 app.use("/post", postRoute);      
@@ -63,6 +74,8 @@ app.use("/",indexRoute)
 
 // assigning port  number
 const PORT = process.env.PORT || 3001;
+
+
 
 app.listen(PORT, console.log(`Server on port ${PORT}`));
 

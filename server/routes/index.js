@@ -13,9 +13,6 @@ const isLoggedIn =(req,res,next)=>{
 
 } 
 
-
-
-
 // home page
 router.get("/", (req,res)=>{
     res.send("hello world nodejs");
@@ -36,21 +33,6 @@ router.get('/logout',(req,res)=>{
     req.logout();
     res.redirect("/");
 })
-
-
-
-// passport auth google
-// router.get('/google',
-//   passport.authenticate('google', { scope: ['profile','email'] }));
-
-// router.get('/google/callback', 
-//   passport.authenticate('google', { failureRedirect: '/failed' }),
-//   function(req, res) {
-//     // Successful authentication, redirect home.
-//     res.redirect('/welcome');
-//   });
-
-
 
 router.post("/post", (req, res) => {
     console.log("Connected to React");
