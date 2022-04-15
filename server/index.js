@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 // routes  
 const postRoute = require("./routes/post");
@@ -36,6 +37,22 @@ require("./config/passport")(passport);
 
 
 // using middleware
+
+app.use(cors());
+app.use((req,res, next) => {
+ res.header("Access-Control-Allow-Origin" , "*");
+ res.header(
+    "Access-Control-Allow-Methods",
+    "GET, PUT, POST, DELETE, HEAD, OPTIONS"
+ );
+ res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, x-access-token, visitorid, language"
+ );
+ res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
+ next();
+});
+
 app.use(express.json());
 app.use(bodyParser.urlencoded( {extended : false} ));
 app.use(bodyParser.json());
@@ -79,3 +96,4 @@ const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, console.log(`Server on port ${PORT}`));
 
+    
