@@ -31,11 +31,12 @@ const postSchema = new mongoose.Schema({
           type:Array, //  [{userid:123,date:20.3.21},{userid:121,date:21.3.22},{}]
         }
      ,
-     dateCreated:{
+     createdAt:{
          type:Date,
-        // required:true,
+         immautable: true
+        
      }
-})
+}, {timestamps: true}); 
 
 
 const Post = mongoose.model("Post",postSchema);
