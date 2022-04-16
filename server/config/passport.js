@@ -11,6 +11,30 @@ module.exports=function(passport){
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
   async(accessToken, refreshToken, profile, done)=>{
+  //   console.log(profile);
+
+  //   const newUser ={
+  //     googleId:profile.id,
+  //     firstName:profile.name.givenName,
+  //     lastName:profile.name.familyName,
+  //     profilePicture:profile.photos[0].value,
+  //     userEmailId:profile.emails[0].value,
+  //     google: profile._json
+  //   }
+
+  // try{
+  //   let user = await User.findOne({googleId: profile.id})
+
+  //   if(user){
+  //     done(null,user)
+  //   }else{
+  //     user = await User.create(newUser)
+  //     done(null,user)
+  //   }
+  // }catch(err){
+  //     console.error(err)
+  // }
+
     return done(null, profile);
   }
   ));
@@ -18,10 +42,11 @@ module.exports=function(passport){
      done(null,user.id)
     });
     
-    passport.deserializeUser(function(user, done) {
+    passport.deserializeUser(function(id, done) {
       User.findById(id,(err,user)=>{ 
-           done(null,user);
+           done(err,user);
          });
+
     });
   
 }

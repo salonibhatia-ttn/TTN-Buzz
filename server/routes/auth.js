@@ -17,4 +17,4 @@ router.get('/google/callback',
     res.redirect('/welcome');
   });
 
-module.exports= router
+module.exports= router;

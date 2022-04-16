@@ -67,9 +67,9 @@ app.use(passport.session())
 app.use("/post", postRoute);      
 app.use("/comment", commentRoute);
 app.use("/user",userRoute);
-app.use("/",authRoute);
 app.use('/image', imageRoute);
 app.use("/",indexRoute)
+app.use("/auth",authRoute);
 
 
 // assigning port  number

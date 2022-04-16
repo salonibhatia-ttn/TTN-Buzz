@@ -34,10 +34,10 @@ router.get('/logout',(req,res)=>{
     res.redirect("/");
 })
 
-router.post("/post", (req, res) => {
-    console.log("Connected to React");
-    res.redirect("/");
-  });
+// router.post("/post", (req, res) => {
+//     console.log("Connected to React");
+//     res.redirect("/");
+//   });
 
 
 // Register user
