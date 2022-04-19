@@ -50,6 +50,8 @@ app.use((req,res, next) => {
     "Origin, X-Requested-With, Content-Type, Accept, x-access-token, visitorid, language"
  );
  res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
+ res.header("Access-Control-Allow-Credentials", true);
+
  next();
 });
 
@@ -78,15 +80,13 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())   
 
-
-
 // calling routes   
 app.use("/post", postRoute);      
 app.use("/comment", commentRoute);
 app.use("/user",userRoute);
-app.use("/",authRoute);
 app.use('/image', imageRoute);
 app.use("/",indexRoute)
+app.use("/",authRoute);
 
 
 // assigning port  number

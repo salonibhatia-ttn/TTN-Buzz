@@ -57,6 +57,7 @@ const UserSchema = new mongoose.Schema({
         type: Number,
       
     },
+    Google:{},
 
     
 })

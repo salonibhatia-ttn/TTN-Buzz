@@ -1,6 +1,9 @@
 const express = require ('express')
 
 const router = express.Router()
+const User = require('../api/db/models/User');
+const bcrypt = require("bcrypt");
+
 
 
 //  middleware
@@ -67,21 +70,25 @@ router.post('/register', async (req,res)=>{
 
 })
 
-router.post('/login',async(req,res)=>{
+router.post("/login",async(req,res)=>{
     try{
-        const user =  await User.findOne({userEmailId:req.body.userEmailId});
-        !user && res.status(404).json("user not found");
+    const user =  await User.findOne({userEmailId:req.body.email});
+        // !user &&  return( res.status(404).json("user not found"))
+        if(!user){
+            return res.status(404).send("user not found")
+        }
+
+        // console.log(req.body);
+        // console.log(user);
 
         const validPassword = await bcrypt.compare(req.body.password, user.password)
         !validPassword && res.status(400).json("invalid/wrong password")
 
 
-
-        // 
-
-        res.status(200).json(user);
+        res.status(200).send(user);
     }catch(err){
-        res.status(500).json(err);
+        // console.log(err);
+        res.status(500).send(err);
     }
 })
 
