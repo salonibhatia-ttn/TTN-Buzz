@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('./User');
-
+const { Image, imageSchema } = require('./Image');
 const postSchema = new mongoose.Schema({
     
 
@@ -14,8 +14,8 @@ const postSchema = new mongoose.Schema({
         maxlength:250,
      },
      images:{
-         type: Array,
-         ref:'Image',
+         type: [imageSchema]
+         //ref: 'Image'
      },
      like:{
          type:Array,

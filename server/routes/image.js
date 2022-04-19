@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Image = require("../api/db/models/Image");
+const { Image } = require("../api/db/models/Image");
 const Post = require("../api/db/models/Post");
 const bodyParser = require('body-parser');
 const cloudinary = require('cloudinary').v2;
@@ -20,7 +20,7 @@ cloudinary.config({
 
 
 router.post('/upload-images', upload.array('image', 12), async function (req, res, next) {
-  console.log(req.files);
+  //console.log(req.files);
   let files = req.files;
   for( let file of files) {
     cloudinary.uploader.upload(file.path,
