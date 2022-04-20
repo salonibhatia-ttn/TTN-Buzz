@@ -54,10 +54,10 @@ router.post('/register', async (req,res)=>{
 
  //   crating new user
       const newUser = new User({
-        firstName: req.body.firstName,
-        lastName : req.body.lastName,
-        isAdmin : req.body.isAdmin,
-        userEmailId : req.body.userEmailId,
+        firstName: req.body.firstname,
+        lastName : req.body.lastname,
+        // isAdmin : req.body.isAdmin,
+        userEmailId: req.body.email,
         password:hashedPassword,
         });
 
