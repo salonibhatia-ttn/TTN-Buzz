@@ -44,17 +44,36 @@ router.delete('/deletepost/:id' , async (req,res) => {
 });
 
 //like or dislike posts
-router.put('/likedislike/:id', async (req,res) => {
+router.put('/like/:id', async (req,res) => {
   try{
     const post = await Post.findById(req.params.id);
     if(!post.like.includes(req.body.userID)) {
       await post.updateOne( { $push : {like : req.body.userID } });
-      await post.updateOne ( { $pull : { dislike : req.body.userID } });
+     
+      //await post.updateOne ( { $pull : { dislike : req.body.userID } });
       res.status(200).json("The post has been liked.");
     } else {
-      await post.updateOne ( { $push : { dislike : req.body.userID } });
+      //await post.updateOne ( { $push : { dislike : req.body.userID } });
       await post.updateOne ( { $pull : { like : req.body.userID } });
       res.status(200).json("The post has been disliked.");
+    }
+    console.log(post);
+  }catch (err) {
+    res.status(500).json(err);
+  }
+})
+
+router.put('/dislike/:id', async (req,res) => {
+  try{
+    const post = await Post.findById(req.params.id);
+    if(!post.dislike.includes(req.body.userID)) {
+      await post.updateOne( { $push : {dislike : req.body.userID } });
+      //await post.updateOne ( { $pull : { dislike : req.body.userID } });
+      res.status(200).json("The post has been disliked.");
+    } else {
+      //await post.updateOne ( { $push : { dislike : req.body.userID } });
+      await post.updateOne ( { $pull : { dislike : req.body.userID } });
+      res.status(200).json("The post has been liked.");
     }
   }catch (err) {
     res.status(500).json(err);
