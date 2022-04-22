@@ -61,6 +61,9 @@ router.post('/register', async (req,res)=>{
         password:hashedPassword,
         });
 
+
+    const token = await newUser.generateAuthToken();
+
     //    save user and respond
         const user = await newUser.save();
         res.status(200).json(user);

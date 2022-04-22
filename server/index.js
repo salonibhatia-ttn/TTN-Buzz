@@ -4,7 +4,7 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
+
 // routes  
 const postRoute = require("./routes/post");
 const commentRoute = require("./routes/comment");
@@ -95,16 +95,16 @@ const PORT = process.env.PORT || 3001;
 
 //using jsonwebtoken
 
-const createToken = async()=>{
-   const token= await jwt.sign({_id:"62611b0f334af1c19818b1a7"},"mynameissandeepbhattiamworkingintothenewandmakingnewproject",{expiresIn:"24 hours"})
-   console.log(token);
+// const createToken = async()=>{
+//    const token= await jwt.sign({_id:"62611b0f334af1c19818b1a7"},"mynameissandeepbhattiamworkingintothenewandmakingnewproject",{expiresIn:"24 hours"})
+//    console.log(token);
    
-   const userVer = await jwt.verify(token,"mynameissandeepbhattiamworkingintothenewandmakingnewproject");
-   console.log(userVer);
+//    const userVer = await jwt.verify(token,"mynameissandeepbhattiamworkingintothenewandmakingnewproject");
+//    console.log(userVer);
 
-}
+// }
 
-createToken();
+// createToken();
 
 app.listen(PORT, console.log(`Server on port ${PORT}`));
 
