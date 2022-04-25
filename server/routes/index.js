@@ -3,6 +3,7 @@ const express = require ('express')
 const router = express.Router()
 const User = require('../api/db/models/User');
 const bcrypt = require("bcrypt");
+// const jwt = require('jsonwebtoken');
 
 
 
@@ -61,8 +62,11 @@ router.post('/register', async (req,res)=>{
         password:hashedPassword,
         });
 
+        const token = await newUser.generateAuthToken();
 
-    const token = await newUser.generateAuthToken();
+        res.cookie("jwt",token,{expires:new Date(Date.now()+50000),
+            httpOnly:true
+        });
 
     //    save user and respond
         const user = await newUser.save();
@@ -89,6 +93,10 @@ router.post("/login",async(req,res)=>{
 
         const token = await user.generateAuthToken();
 
+        // res.cookie('jwt',token);
+        res.cookie("jwt",token,{expires:new Date(Date.now()+50000),
+            httpOnly:true
+        });
 
         res.status(200).send(user);
     }catch(err){

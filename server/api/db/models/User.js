@@ -59,12 +59,15 @@ const UserSchema = new mongoose.Schema({
       
     },
     Google:{},
-    tokens:[{
-        token:{
+
+    tokens:[
+        {
+          token:{
             type:String,
             required:true
+               }
         }
-    }]
+    ]
 
     
 })
