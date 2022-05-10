@@ -14,10 +14,11 @@ const postSchema = new mongoose.Schema({
         maxlength:250,
      },
      images:{
-         type: [imageSchema]
+         type: [imageSchema],
          //ref: 'Image'
+         //required: true
      },
-     like:{
+     like:{    
          type:Array,
          ref:'User',
      },
