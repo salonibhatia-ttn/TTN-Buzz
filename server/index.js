@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+
 // routes  
 const postRoute = require("./routes/post");
 const commentRoute = require("./routes/comment");
@@ -92,7 +93,18 @@ app.use("/",authRoute);
 // assigning port  number
 const PORT = process.env.PORT || 3001;
 
+//using jsonwebtoken
 
+// const createToken = async()=>{
+//    const token= await jwt.sign({_id:"62611b0f334af1c19818b1a7"},"mynameissandeepbhattiamworkingintothenewandmakingnewproject",{expiresIn:"24 hours"})
+//    console.log(token);
+   
+//    const userVer = await jwt.verify(token,"mynameissandeepbhattiamworkingintothenewandmakingnewproject");
+//    console.log(userVer);
+
+// }
+
+// createToken();
 
 app.listen(PORT, console.log(`Server on port ${PORT}`));
 
